@@ -295,6 +295,7 @@ function KnockOnDoor(ObjectReference akDoor)
 		CurrentSpeaker = found_actor
 		Activator talking_door = GetTalkingDoor(found_actor.GetVoiceType(), found_actor.GetActorBase().GetSex())
 		ObjectReference my_talking_door = akDoor.PlaceAtMe(talking_door)
+		my_talking_door.SetScale(0.0)
 		TalkingDoorAlias.ForceRefTo(my_talking_door)
 		
 		; Set the current negotiation state flags

@@ -187,3 +187,17 @@ bool function IsPathObject(string FileName, string Path) global native
 
 ; Debug use
 function ClearAll(string FileName) global native
+
+bool function SetRawPathValue(string FileName, string Path, string RawJSON) global native
+
+int function FindPathIntElement(string FileName, string Path, int toFind) global native
+int function FindPathFloatElement(string FileName, string Path, float toFind) global native
+int function FindPathStringElement(string FileName, string Path, string toFind) global native
+int function FindPathFormElement(string FileName, string Path, form toFind) global native
+
+function SetPathIntArray(string FileName, string Path, int[] arr, bool append = false) global native
+function SetPathFloatArray(string FileName, string Path, float[] arr, bool append = false) global native
+function SetPathStringArray(string FileName, string Path, string[] arr, bool append = false) global native
+function SetPathFormArray(string FileName, string Path, form[] arr, bool append = false) global native
+
+function ClearPath(string FileName, string Path) global native

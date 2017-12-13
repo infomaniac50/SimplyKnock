@@ -79,13 +79,7 @@ function PageReset_SaveLoad()
 
 	AddEmptyOption()
 	if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
-		SKI_Main skyui = Game.GetFormFromFile(0x00000814, "SkyUI.esp") as SKI_Main
-		int version = skyui.ReqSWFRelease
-		if version >= 1026 	; SkyUI 5.1+
-			SaveLoad_RenameProfile_OID = AddInputOption("", "$SimplyKnockSaveLoadRenameProfile")
-		else
-			SaveLoad_RenameProfile_OID = AddTextOption("$SimplyKnockSkyUI51Required", "$SimplyKnockSaveLoadRenameProfile", OPTION_FLAG_DISABLED)
-		endif
+		SaveLoad_RenameProfile_OID = AddInputOption("", "$SimplyKnockSaveLoadRenameProfile")
 		SaveLoad_DefaultProfile_OID = AddTextOption("", "$SimplyKnockSaveLoadDefaultProfile")
 	endif
 	AddEmptyOption()
