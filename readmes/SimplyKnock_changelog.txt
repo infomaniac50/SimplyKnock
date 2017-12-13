@@ -1,6 +1,18 @@
 ===================================================
 
-Simply Knock
+Simply Knock SE
+
+Change Log
+
+===================================================
+
+Release 1.0.0 (12/13/2017)
+
+    Ported to Skyrim SE and SKSE64
+
+===================================================
+
+Simply Knock (original)
 
 Change Log
 

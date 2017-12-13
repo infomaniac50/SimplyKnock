@@ -1,17 +1,18 @@
 ===================================================
 
-Simply Knock
+Simply Knock SE
 
-For The Elder Scrolls V: Skyrim
+For The Elder Scrolls V: Skyrim - Special Edition
 
 Author: Chesko
+Ported by: anonymousthing
 
 E-mail - chesko.tesmod@gmail.com
 
 ===================================================
 
-Version: 1.0.8
-Date: 2/19/2016
+Version: 1.0.0
+Date: 12/13/2017
 
 Simply Knock is the first feature-complete mod that allows you to knock on locked doors of houses in Skyrim. If anyone is home, they will answer the door! You can then flex your speechcraft skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
@@ -23,7 +24,12 @@ My goal was to make a very simple, lightweight, no-nonsense mod that had a place
 
 Change Log
 ----------
-The latest changes are documented on Simply Knock's change log on Evernote(https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1).
+The latest changes for the original mod are documented on Simply Knock's change log on Evernote(https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1).
+
+Port Notes
+----------
+This Special Edition port was a direct port from the original - no functional code has been changed, and I have only recompiled the DLL component of the mod from the original SKSE to the new SKSE64 for SSE.
+I have not tested the entire mod in depth, so there may be many issues present; if you find one, please report it!
 
 How To Use
 ----------
@@ -35,15 +41,15 @@ That's all there is to it.
 
 Requirements
 ------------
-* Skyrim 1.9.32.0
-* SKSE 1.7.3+
-* SkyUI 4.1+ (SkyUI-Away is fine)
+* Skyrim SE 1.5.23
+* SKSE64 2.0.6+
+* SkyUI SE 5.2+
 
 Installation
 ------------
-Just install as normal with your mod manager of choice. If conflicts arise due to PapyrusUtil components (JsonUtil, StorageUtil), choose to overwrite those components, and / or load this mod as close to last as you can in your load order (in Mod Organizer, with highest Priority value possible). This is not a source of a conflict; please do not create a bug report about this.
+Just install as normal with your mod manager of choice. If conflicts arise due to PapyrusUtil components (JsonUtil), choose to overwrite those components, and / or load this mod as close to last as you can in your load order (in Mod Organizer, with highest Priority value possible). This is not a source of a conflict; please do not create a bug report about this.
 
-Please do not unpack the BSA archive into your Skyrim / mod installation directory. This can lead to unwanted behavior if installing an update to this mod. If you want to look at or download the source code, please clone the GitHub repository(https://github.com/chesko256/SimplyKnock).
+Please do not unpack the BSA archive into your Skyrim / mod installation directory. This can lead to unwanted behavior if installing an update to this mod. If you want to look at or download the source code, please clone the GitHub repository(https://github.com/anonymousthing/SimplyKnock).
 
 Uninstallation
 --------------
@@ -106,9 +112,9 @@ Weird as it sounds, there is no default Papyrus function for getting the destina
 
 Simply Knock implements a custom SKSE function GetLinkedDoor() that sidesteps this problem and provides this missing piece of information to make the rest of this mod possible.
 
-If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), feel free to use any of the code found in simplyknock_skse_plugin(https://github.com/chesko256/SimplyKnock/tree/master/simplyknock_skse_plugin) when creating your own SKSE plug-in. It is free for anyone to use.
+If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), feel free to use any of the code found in simplyknock_skse_plugin(https://github.com/anonymousthing/SimplyKnock/tree/master/simplyknock_skse_plugin) when creating your own SKSE plug-in. It is free for anyone to use.
 
-Compatibility
+Compatibility (oldrim - to be updated for SSE)
 -------------
 * Confirmed as compatible with the following mods:
   * No Psychic Lock Knowledge(http://www.nexusmods.com/skyrim/mods/44115) - The door menu does not betray the difficulty of the lock.
@@ -124,11 +130,14 @@ Compatibility
   * SkyRe(http://www.nexusmods.com/skyrim/mods/9286) - Requires compatibility patch. See Files section.
   * PerMa(http://www.nexusmods.com/skyrim/mods/59849) - Requires compatibility patch. See Files section.
 
+I do not know if the new SSE version of PerMa still works with the old compatibility patch - as such, I will keep the old compatibility patches available for download in the files section. 
+If you find that it works, please report it as so. Thank you!
+
 * Special Compatibility Notes:
   * Using Simply Knock, SkyRe, and Lock Overhaul simultaneously, with Lock Overhaul's "Auto Pick" feature will cause the door menu to display an "Open" option, which will effectively do nothing. Also, selecting "Auto Pick" may bring up the lock picking screen occasionally, especially when sneaking. Canceling out of the lockpicking menu after auto-picking will show that the door was unlocked successfully. All other features of Lock Overhaul should function normally.  These (minor) issues are not present when using Simply Knock and Lock Overhaul WITHOUT SkyRe.
 
 
-* Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
+* Includes JsonUtil.pex/psc from PapyrusUtil 3.3c. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 
 * Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice". This just means that the person you hear on the other side of the door might not match what they actually sound like in this case.
 
@@ -147,7 +156,7 @@ If you observe unwanted behavior, I need the following information. Failure to i
   * The time of day in-game
   * What specific dialogue options you chose
 
-* I left a house, and the door didn't re-lock behind me.  
+* I left a house, and the door didn't re-lock behind me after 12 hours (or whatever you have set).
 There can be several causes of this. One, if the owners of that cell are scheduled to be home and have the doors unlocked at the time you left. Two, sometimes the owner's AI packages don't re-run immediately. Finally, not every cell (such as Chillfurrow Farm) has an owner lock list, and once it's been unlocked, it will stay that way forever.
 
 * Some files appeared in my Mod Organizer Overwrite directory. What are they, and do I need them?   
@@ -159,7 +168,7 @@ PapyrusUtil is a modder's resource and is free to be included with a mod. For ea
 
 However, even if you load a mod that includes an outdated PapyrusUtil after Simply Knock, Simply Knock should continue to function correctly.
 
-In short: just load Simply Knock as low (high-priority in MO's left pane) as you can, overwrite the components (StorageUtil.dll, JsonUtil) that your mod manager might complain about during install, and forget about the rest. It should just work.
+In short: just load Simply Knock as low (high-priority in MO's left pane) as you can, overwrite the components (JsonUtil) that your mod manager might complain about during install, and forget about the rest. It should just work.
 
 If you are that concerned about whether or not you have the latest PapyrusUtil, download and install PapyrusUtil separately (http://www.nexusmods.com/skyrim/mods/58705) and load it at the very end of your load order. You will then always have that version loaded and you can update it independently of any mod that includes it. To quote Captain Planet: the power is yours.
 
@@ -196,6 +205,7 @@ Credits
 * Includes portions of PapyrusUtil 3.2.
 * DoorGlassKnock 166 from FreeSoundEffects.com. Link to asset(http://www.freesoundeffects.com/track/doorglassknock-166-438782/knock%20door/), License Agreement(http://www.freesoundeffects.com/licence.php)
 * Vector - Wooden door (Image ID: csp12847818) from www.canstockphoto.com. Link to asset(http://www.canstockphoto.com/wooden-door-12847818.html), License Agreement(http://www.canstockphoto.com/license_print.php?id=2)
+* Chesko for the original mod!
 
 Permissions
 -----------
