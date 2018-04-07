@@ -41,8 +41,8 @@ More videos are available in the [url=http://www.nexusmods.com/skyrim/mods/73236
 Simply Knock is developed on [b][url=https://github.com/anonymousthing/SimplyKnock]Github[/url][/b]. The latest changes are documented on Simply Knock's change log on [b][url=https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1]Evernote[/url][/b].
 
 [color=#ffff99][u][size=6]Requirements[/size][/u][/color]
-* Skyrim SE 1.5.23
-* SKSE64 2.0.6+
+* Skyrim SE 1.5.39
+* SKSE64 2.0.7
 * SkyUI 5.2+
 
 [color=#ffff99][u][size=6]Installation[/size][/u][/color]
