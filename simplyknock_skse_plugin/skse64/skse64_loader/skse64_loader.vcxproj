@@ -14,7 +14,7 @@
     <ProjectGuid>{6BDD43E4-A8D9-49CA-9F76-954718F295EE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>skse64_loader</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>

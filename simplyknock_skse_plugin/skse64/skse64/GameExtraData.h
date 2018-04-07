@@ -98,8 +98,8 @@ public:
 		void GetEquipItemData(InventoryEntryData::EquipData& stateOut, TESForm * item, SInt32 itemId) const;
 
 		MEMBER_FN_PREFIX(Data);
-		DEFINE_MEMBER_FN(SetUniqueID, void, 0x001ECDF0, BaseExtraList* itemList, TESForm * oldForm, TESForm * newForm);
-		DEFINE_MEMBER_FN(TransferItemUID, void, 0x001ECFB0, BaseExtraList * extraList, TESForm * oldForm, TESForm * newForm, UInt32 unk1);
+		DEFINE_MEMBER_FN(SetUniqueID, void, 0x001ECE40, BaseExtraList* itemList, TESForm * oldForm, TESForm * newForm);
+		DEFINE_MEMBER_FN(TransferItemUID, void, 0x001ED000, BaseExtraList * extraList, TESForm * oldForm, TESForm * newForm, UInt32 unk1);
 	};
 
 	Data * data;

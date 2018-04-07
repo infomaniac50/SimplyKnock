@@ -6,7 +6,7 @@ RelocAddr <_LookupFormByID> LookupFormByID(0x001943B0);
 BGSDefaultObjectManager *	BGSDefaultObjectManager::GetSingleton(void)
 {
 	// 81542B44FD6902A56B6B1464C37C41C529E9FD2A+31CB
-	static RelocPtr<BGSDefaultObjectManager*> g_BGSDefaultObjectManager(0x01EE3690);
+	static RelocPtr<BGSDefaultObjectManager*> g_BGSDefaultObjectManager(0x01EE4710);
 	return *g_BGSDefaultObjectManager;
 }
 

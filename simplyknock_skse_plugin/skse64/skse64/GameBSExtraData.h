@@ -250,8 +250,7 @@ public:
 	PresenceBitfield	* m_presence;	// 08
 
 	// These added in SE
-	UInt32	unk10;
-	UInt32	unk14;
+	BSReadWriteLock		m_lock;
 
 private:
 	MEMBER_FN_PREFIX(BaseExtraList);

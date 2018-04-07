@@ -10,7 +10,7 @@ static SKSEPapyrusInterface         * g_papyrus = NULL;
 extern "C"	{
 
 	bool SKSEPlugin_Query(const SKSEInterface * skse, PluginInfo * info)	{	// Called by SKSE to learn about this plugin and check that it's safe to load it
-		gLog.OpenRelative(CSIDL_MYDOCUMENTS, "\\My Games\\Skyrim\\SKSE\\SimplyKnock.log");
+		gLog.OpenRelative(CSIDL_MYDOCUMENTS, "\\My Games\\Skyrim Special Edition\\SKSE\\SimplyKnock.log");
 		gLog.SetPrintLevel(IDebugLog::kLevel_Error);
 		gLog.SetLogLevel(IDebugLog::kLevel_DebugMessage);
 
@@ -27,12 +27,6 @@ extern "C"	{
 		if(skse->isEditor)
 		{
 			_MESSAGE("loaded in editor, marking as incompatible");
-
-			return false;
-		}
-		else if(skse->runtimeVersion != RUNTIME_VERSION_1_5_23)
-		{
-			_MESSAGE("unsupported runtime version %08X", skse->runtimeVersion);
 
 			return false;
 		}

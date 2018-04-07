@@ -1280,10 +1280,10 @@ public:
 	UInt32	pad13C;						// 13C
 
 	MEMBER_FN_PREFIX(ActorProcessManager);
-	DEFINE_MEMBER_FN(SetEquipFlag, void, 0x0067E1F0, UInt8 flags);
-	DEFINE_MEMBER_FN(UpdateEquipment, void, 0x00650C30, Actor * actor);
+	DEFINE_MEMBER_FN(SetEquipFlag, void, 0x0067E860, UInt8 flags);
+	DEFINE_MEMBER_FN(UpdateEquipment, void, 0x006512A0, Actor * actor);
 	// FBB0A4AE04B0C1C63470C26B004079D7D9B20D0B+8B
-	DEFINE_MEMBER_FN(SetDataFlag, void, 0x0065C6C0, float flag); // Sets a number on the 0x10 object. SE: The parameter flag was actually a float (xmm1)
+	DEFINE_MEMBER_FN(SetDataFlag, void, 0x0065CD30, float flag); // Sets a number on the 0x10 object. SE: The parameter flag was actually a float (xmm1)
 
 	void UpdateEquipment_Hooked(Actor * actor);
 };
@@ -1367,9 +1367,9 @@ public:
 	void SetSkillLegendaryLevel(BSFixedString actorValue, UInt32 level);
 
 	MEMBER_FN_PREFIX(PlayerSkills);
-	DEFINE_MEMBER_FN(GetSkillData, UInt32, 0x006E5F70, UInt32 actorValue, float * level, float * points, float * pointsMax, UInt32 * unk6);
-	DEFINE_MEMBER_FN(IncrementLegendary, UInt32, 0x006E6460, UInt32 actorValue);
-	DEFINE_MEMBER_FN(SetLevel, void, 0x006E6400, UInt32 level);
+	DEFINE_MEMBER_FN(GetSkillData, UInt32, 0x006E65E0, UInt32 actorValue, float * level, float * points, float * pointsMax, UInt32 * unk6);
+	DEFINE_MEMBER_FN(IncrementLegendary, UInt32, 0x006E6AD0, UInt32 actorValue);
+	DEFINE_MEMBER_FN(SetLevel, void, 0x006E6A70, UInt32 level);
 };
 
 // 10

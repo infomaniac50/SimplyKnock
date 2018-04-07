@@ -153,9 +153,9 @@ public:
 
 	MEMBER_FN_PREFIX(NiRenderedTexture);
 	DEFINE_MEMBER_FN(ctor, void, 0x00000000);
-	DEFINE_MEMBER_FN(UpdateVirtualImage, void, 0x00ECD660, NiRenderedTexture * newTexture);
-	DEFINE_MEMBER_FN(AddVirtualImage, UInt8, 0x00ECD720, BSFixedString linkageName);
-	DEFINE_MEMBER_FN(ReleaseVirtualImage, void, 0x00ECD5F0);
+	DEFINE_MEMBER_FN(UpdateVirtualImage, void, 0x00ECE030, NiRenderedTexture * newTexture);
+	DEFINE_MEMBER_FN(AddVirtualImage, UInt8, 0x00ECE0F0, BSFixedString linkageName);
+	DEFINE_MEMBER_FN(ReleaseVirtualImage, void, 0x00ECDFC0);
 };
 
 // 58

@@ -35,7 +35,7 @@ public:
 	void	Destroy(void);
 
 	MEMBER_FN_PREFIX(VMIdentifier);
-	DEFINE_MEMBER_FN(Destroy_Internal, void, 0x0124A300);
+	DEFINE_MEMBER_FN(Destroy_Internal, void, 0x0124ADD0);
 };
 
 // 10
@@ -97,7 +97,7 @@ public:
 		VMValue	*	GetData(void) { return (VMValue *)(this + 1); }
 
 		MEMBER_FN_PREFIX(ArrayData);
-		DEFINE_MEMBER_FN(Destroy, void, 0x01258AD0);
+		DEFINE_MEMBER_FN(Destroy, void, 0x012595A0);
 	};
 
 	UInt64	type;	// 00
@@ -117,9 +117,9 @@ public:
 	} data;			// 04
 
 	MEMBER_FN_PREFIX(VMValue);
-	DEFINE_MEMBER_FN(Set, void, 0x0124DAE0, const VMValue * src);
-	DEFINE_MEMBER_FN(Destroy, void, 0x0124D9A0);
-	DEFINE_MEMBER_FN(SetArray, void, 0x0124CBF0, ArrayData * data);
+	DEFINE_MEMBER_FN(Set, void, 0x0124E5B0, const VMValue * src);
+	DEFINE_MEMBER_FN(Destroy, void, 0x0124E470);
+	DEFINE_MEMBER_FN(SetArray, void, 0x0124D6C0, ArrayData * data);
 
 	bool	IsIdentifierArray()
 	{

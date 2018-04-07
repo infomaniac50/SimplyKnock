@@ -247,7 +247,7 @@ bool IdentifyEXE(const char * procName, bool isEditor, std::string * dllSuffix, 
 
 	bool result = false;
 
-	const UInt64 kCurVersion = 0x0001000500170000;	// 1.5.23.0
+	const UInt64 kCurVersion = 0x0001000500270000;	// 1.5.39.0
 
 	// convert version resource to internal version format
 	UInt32 versionInternal = MAKE_EXE_VERSION(version >> 48, version >> 32, version >> 16);
@@ -276,6 +276,7 @@ bool IdentifyEXE(const char * procName, bool isEditor, std::string * dllSuffix, 
 			"You are using a newer version of Skyrim than this version of SKSE64 supports.\n"
 			"If this version just came out, please be patient while we update our code.\n"
 			"In the meantime, please check http://skse.silverlock.org for updates.\n"
+			"Do not email about this!\n"
 			"Runtime: %d.%d.%d\n"
 			"SKSE64: %d.%d.%d",
 			GET_EXE_VERSION_MAJOR(versionInternal), GET_EXE_VERSION_MINOR(versionInternal), GET_EXE_VERSION_BUILD(versionInternal),
@@ -304,7 +305,7 @@ bool IdentifyEXE(const char * procName, bool isEditor, std::string * dllSuffix, 
 		{
 		case kProcType_Steam:
 		case kProcType_Normal:
-			*dllSuffix = "1_5_23";
+			*dllSuffix = "1_5_39";
 
 			result = true;
 

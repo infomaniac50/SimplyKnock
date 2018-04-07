@@ -40,12 +40,12 @@ class SimpleLock
 	};
 
 	volatile SInt32	threadID;	// 00
-	UInt32			lockCount;	// 04
+	volatile UInt32	lockCount;	// 04
 
 public:
 	SimpleLock() : threadID(0), lockCount(0) {}
 
-	void Lock(void);
+	void Lock(UInt32 pauseAttempts = 0);
 	void Release(void);
 };
 STATIC_ASSERT(sizeof(SimpleLock) == 0x8);
@@ -60,6 +60,33 @@ protected:
 	SimpleLock	* m_lock;
 };
 
+// 08
+class BSReadWriteLock
+{
+	enum
+	{
+		kFastSpinThreshold = 10000,
+		kLockWrite = 0x80000000,
+		kLockCountMask = 0xFFFFFFF
+	};
+
+	volatile SInt32	threadID;	// 00
+	volatile UInt32	lockValue;	// 04
+
+public:
+	BSReadWriteLock() : threadID(0), lockValue(0) {}
+
+	void LockForRead();
+	void LockForWrite();
+	void LockForReadAndWrite();
+
+	bool TryLockForWrite();
+	bool TryLockForRead();
+
+	void Unlock();
+};
+STATIC_ASSERT(sizeof(SimpleLock) == 0x8);
+
 // 80808
 class StringCache
 {
@@ -69,10 +96,10 @@ public:
 		const char	* data;
 
 		MEMBER_FN_PREFIX(Ref);
-		DEFINE_MEMBER_FN(ctor, Ref *, 0x00C28280, const char * buf);
-		DEFINE_MEMBER_FN(Set, Ref *, 0x00C283F0, const char * buf);
+		DEFINE_MEMBER_FN(ctor, Ref *, 0x00C28C50, const char * buf);
+		DEFINE_MEMBER_FN(Set, Ref *, 0x00C28DC0, const char * buf);
 		// 77D2390F6DC57138CF0E5266EB5BBB0ACABDFBE3+A0
-		DEFINE_MEMBER_FN(Release, void, 0x00C283D0);
+		DEFINE_MEMBER_FN(Release, void, 0x00C28DA0);
 
 		Ref();
 		Ref(const char * buf);

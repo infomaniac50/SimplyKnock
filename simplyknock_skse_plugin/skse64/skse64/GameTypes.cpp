@@ -25,25 +25,194 @@ StringCache::Ref::Ref(const char * buf)
 	CALL_MEMBER_FN(this, ctor)(buf);
 }
 
-void SimpleLock::Lock(void)
+void SimpleLock::Lock(UInt32 pauseAttempts)
 {
 	SInt32 myThreadID = GetCurrentThreadId();
-	if (threadID == myThreadID) {
-		lockCount++;
-		return;
+
+	_mm_lfence();
+	if (threadID == myThreadID)
+	{
+		InterlockedIncrement(&lockCount);
 	}
+	else
+	{
+		UInt32 attempts = 0;
+		if (InterlockedCompareExchange(&lockCount, 1, 0))
+		{
+			do
+			{
+				++attempts;
+				_mm_pause();
+				if (attempts >= pauseAttempts) {
+					UInt32 spinCount = 0;
+					while (InterlockedCompareExchange(&lockCount, 1, 0))
+						Sleep(++spinCount < kFastSpinThreshold ? 0 : 1);
+					break;
+				}
+			} while (InterlockedCompareExchange(&lockCount, 1, 0));
+			_mm_lfence();
+		}
 
-	UInt32 spinCount = 0;
-	while (InterlockedCompareExchange(&threadID, myThreadID, 0))
-		Sleep(++spinCount > kFastSpinThreshold);
-
-    lockCount = 1;
+		threadID = myThreadID;
+		_mm_sfence();
+	}
 }
 
 void SimpleLock::Release(void)
 {
-	if (--lockCount == 0)
-		InterlockedCompareExchange(&threadID, 0, threadID);
+	SInt32 myThreadID = GetCurrentThreadId();
+
+	_mm_lfence();
+	if (threadID == myThreadID)
+	{
+		if (lockCount == 1)
+		{
+			threadID = 0;
+			_mm_mfence();
+			InterlockedCompareExchange(&lockCount, 0, 1);
+		}
+		else
+		{
+			InterlockedDecrement(&lockCount);
+		}
+	}
+}
+
+void BSReadWriteLock::LockForRead()
+{
+	SInt32 myThreadID = GetCurrentThreadId();
+
+	if (threadID == myThreadID)
+	{
+		InterlockedIncrement(&lockValue);
+	}
+	else
+	{
+		UInt32 lockCount = lockValue & kLockCountMask;
+		UInt32 spinCount = 0;
+		UInt32 lockResult = InterlockedCompareExchange(&lockValue, lockCount + 1, lockCount);
+		while (lockResult != lockCount + 1)
+		{
+			if ((lockResult & kLockWrite) != 0)
+			{
+				Sleep(++spinCount < kFastSpinThreshold ? 0 : 1);
+				lockResult = lockValue;
+			}
+				
+			lockCount = lockValue & kLockCountMask;
+			lockResult = InterlockedCompareExchange(&lockValue, lockCount + 1, lockCount);
+		}
+
+		threadID = myThreadID;
+	}
+}
+
+void BSReadWriteLock::LockForWrite()
+{
+	SInt32 myThreadID = GetCurrentThreadId();
+
+	if (threadID == myThreadID)
+	{
+		InterlockedIncrement(&lockValue);
+	}
+	else
+	{
+		UInt32 spinCount = 0;
+		while (InterlockedCompareExchange(&lockValue, UInt32(1 | kLockWrite), 0) != UInt32(1 | kLockWrite))
+			Sleep(++spinCount < kFastSpinThreshold ? 0 : 1);
+
+		threadID = myThreadID;
+		_mm_mfence();
+	}
+}
+
+void BSReadWriteLock::LockForReadAndWrite()
+{
+	SInt32 myThreadID = GetCurrentThreadId();
+
+	if (threadID == myThreadID)
+	{
+		InterlockedIncrement(&lockValue);
+	}
+	else
+	{
+		UInt32 spinCount = 0;
+		while (InterlockedCompareExchange(&lockValue, 1, 0) != 1)
+			Sleep(++spinCount >= kFastSpinThreshold ? 1 : 0);
+	}
+}
+
+bool BSReadWriteLock::TryLockForWrite()
+{
+	SInt32 myThreadID = GetCurrentThreadId();
+
+	bool result = false;
+	if (threadID == myThreadID)
+	{
+		InterlockedIncrement(&lockValue);
+		result = true;
+	}
+	else
+	{
+		result = InterlockedCompareExchange(&lockValue, UInt32(1 | kLockWrite), 0) == UInt32(1 | kLockWrite);
+		if (result)
+		{
+			threadID = myThreadID;
+			_mm_mfence();
+		}
+	}
+	return result;
+}
+bool BSReadWriteLock::TryLockForRead()
+{
+	SInt32 myThreadID = GetCurrentThreadId();
+
+	bool result = false;
+	if (threadID == myThreadID)
+	{
+		InterlockedIncrement(&lockValue);
+		result = true;
+	}
+	else
+	{
+		UInt32 lockCount = lockValue & kLockCountMask;
+		UInt32 lockResult = InterlockedCompareExchange(&lockValue, lockCount + 1, lockCount);
+		while ((lockResult & kLockWrite) == 0)
+		{
+			if (lockResult == lockCount)
+				break;
+
+			lockCount = lockResult & kLockCountMask;
+			lockResult = InterlockedCompareExchange(&lockValue, lockCount + 1, lockCount);
+		}
+
+		result = ~(lockResult >> 31) & 1;
+	}
+
+	return result;
+}
+
+void BSReadWriteLock::Unlock()
+{
+	SInt32 myThreadID = GetCurrentThreadId();
+	if (threadID == myThreadID)
+	{
+		UInt32 lockCount = lockValue - 1;
+		if (lockValue == kLockWrite)
+		{
+			threadID = 0;
+			_mm_mfence();
+			InterlockedExchange(&lockValue, 0);
+		}
+		else
+		{
+			InterlockedDecrement(&lockValue);
+		}
+	}
+	else
+	{
+		InterlockedDecrement(&lockValue);
+	}
 }
 
 void UpdateRegistrationHolder::Order(UInt32 index)

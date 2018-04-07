@@ -54,10 +54,10 @@ public:
 	virtual void	Unk_02(void) {}
 	virtual void	Unk_03(void) {}
 	virtual UInt32	ProcessUnkData1(UnkData1* data);
-	virtual void	NextFrame(UInt32 arg0, UInt32 arg1)	{ CALL_MEMBER_FN(this, NextFrame_internal)(arg0, arg1); }
+	virtual void	NextFrame(UInt32 arg0, UInt32 arg1) { CALL_MEMBER_FN(this, NextFrame_internal)(arg0, arg1); }
 	virtual void	Render(void);
 	virtual void	Unk_07(void) {}
-	virtual void	InitMovie(void)		{ CALL_MEMBER_FN(this,InitMovie_internal)(view); }
+	virtual void	InitMovie(void) { CALL_MEMBER_FN(this, InitMovie_internal)(view); }
 
 	GFxMovieView	* view;		// 10 - init'd to 0, a class, virtual fn 0x228 called in dtor
 	UInt8			unk0C;		// 18 - init'd to 3
@@ -68,9 +68,9 @@ public:
 	GRefCountBase	* unk18;	// 28 - holds a reference
 
 	MEMBER_FN_PREFIX(IMenu);
-	DEFINE_MEMBER_FN(InitMovie_internal, void, 0x00ECD080, GFxMovieView* view);
-	DEFINE_MEMBER_FN(NextFrame_internal, void, 0x00ECCFB0, UInt32 arg0, UInt32 arg1);
-	DEFINE_MEMBER_FN(dtor, void, 0x00ECCF00);
+	DEFINE_MEMBER_FN(InitMovie_internal, void, 0x00ECDA50, GFxMovieView* view);
+	DEFINE_MEMBER_FN(NextFrame_internal, void, 0x00ECD980, UInt32 arg0, UInt32 arg1);
+	DEFINE_MEMBER_FN(dtor, void, 0x00ECD8D0);
 };
 STATIC_ASSERT(offsetof(IMenu, view) == 0x10);
 
@@ -222,7 +222,7 @@ public:
 
 	MEMBER_FN_PREFIX(RaceSexMenu);
 	// FCFD4B12540A068252C0A71C5480E518DDF6EF60+58
-	DEFINE_MEMBER_FN(LoadSliders, void *, 0x008B5A70, UInt64 unk1, UInt8 unk2);
+	DEFINE_MEMBER_FN(LoadSliders, void *, 0x008B62D0, UInt64 unk1, UInt8 unk2);
 };
 STATIC_ASSERT(offsetof(RaceSexMenu, sliderData) == 0x140);
 STATIC_ASSERT(offsetof(RaceSexMenu, raceIndex) == 0x188);
@@ -265,18 +265,18 @@ public:
 		float					unk034;							// 034
 		float					unk038;							// 038
 		float					unk03C;							// 03C
-		
+
 		// SE: this structure growed by a lot! 
 		// FIXME: Replace when LocalMapCullingProcess has a size of 0x30360
 		//LocalMapCullingProcess	cullingProcess;				// 40 /// ---------------- commented out but needs to be sorted out by size
 		UInt8					cullingProcess[0x30360];		// 40
-		
+
 		// TODO: these 4 should go in their own structure
 		NiRenderedTexture		* renderedLocalMapTexture;		// 303A0
 		UInt32					unk303A8;						// 303A8
 		UInt32					pad303AC;						// 303AC
 		UInt64					unk303B0;						// 303B0
-		
+
 		GFxValue				localMapRoot;					// 303B8
 		GFxValue				mapRoot;						// 303D0
 		GFxMovieView			* view;							// 303E8
@@ -313,7 +313,7 @@ class HUDObject
 public:
 	HUDObject::HUDObject(GFxMovieView* movie)
 	{
-		if(movie)
+		if (movie)
 			InterlockedIncrement(&movie->refCount);
 		view = movie;
 	}
@@ -322,7 +322,7 @@ public:
 		object.CleanManaged();
 
 		GFxMovieView * thisView = view;
-		if(thisView)
+		if (thisView)
 			thisView->ForceCollectGarbage();
 	}
 
@@ -333,10 +333,10 @@ public:
 
 	GFxMovieView	* view;		// 08
 	GFxValue		object;		// 10
-	
+
 	MEMBER_FN_PREFIX(HUDObject);
-	DEFINE_MEMBER_FN(dtor, void, 0x008857C0);
-	DEFINE_MEMBER_FN(Impl_Fn03, void *, 0x0087FCC0, void * unk1);
+	DEFINE_MEMBER_FN(dtor, void, 0x008860F0);
+	DEFINE_MEMBER_FN(Impl_Fn03, void *, 0x008805F0, void * unk1);
 
 	DEFINE_STATIC_HEAP(Heap_Allocate, Heap_Free);
 };
@@ -359,7 +359,7 @@ class FloatingQuestMarker : public HUDObject
 public:
 
 	UInt8	todo[0xB8 - 0x28];	// 28
-	
+
 };
 
 // 78
@@ -411,7 +411,7 @@ class HUDMeter : public HUDObject
 {
 public:
 	virtual double GetMaxValue(void);
-	
+
 	char	* setMeterPercent;	// 28
 	char	* startBlinking;	// 30
 	char	* fadeOut;			// 38
@@ -425,14 +425,14 @@ STATIC_ASSERT(sizeof(HUDMeter) == 0x50);
 class ActorValueMeter : public HUDMeter
 {
 public:
-	
+
 };
 
 // 50
 class ShoutMeter : public HUDMeter
 {
 public:
-	
+
 };
 
 // 98
@@ -482,13 +482,13 @@ class EnchantConstructMenu : public CraftingSubMenu
 public:
 	enum
 	{
-		kFilterFlag_EnchantWeapon	 = 0x1,
+		kFilterFlag_EnchantWeapon = 0x1,
 		kFilterFlag_DisenchantWeapon = 0x2,
-		kFilterFlag_EnchanteArmor	 = 0x4,
-		kFilterFlag_DisenchantArmor  = 0x8,
-		kFilterFlag_EffectWeapon     = 0x10,
-		kFilterFlag_EffectArmor      = 0x20,
-		kFilterFlag_SoulGem          = 0x40
+		kFilterFlag_EnchanteArmor = 0x4,
+		kFilterFlag_DisenchantArmor = 0x8,
+		kFilterFlag_EffectWeapon = 0x10,
+		kFilterFlag_EffectArmor = 0x20,
+		kFilterFlag_SoulGem = 0x40
 	};
 
 	// 18
@@ -502,7 +502,7 @@ public:
 		virtual void Unk3(); // pure
 		virtual void SetData(GFxValue* dataContainer);
 
-	//	void		** _vtbl;	// 00
+		//	void		** _vtbl;	// 00
 		UInt32		unk08;		// 08
 		UInt32		filterFlag;	// 0C
 		UInt8		bEquipped;	// 10
@@ -510,7 +510,7 @@ public:
 		UInt8		pad12[6];	// 12
 
 		MEMBER_FN_PREFIX(CategoryListEntry);
-		DEFINE_MEMBER_FN(SetData, void, 0x0086ECB0, GFxValue* target);
+		DEFINE_MEMBER_FN(SetData, void, 0x0086F5E0, GFxValue* target);
 
 		void SetData_Extended(EnchantConstructMenu*	subMenu, GFxValue* target);
 	};
@@ -617,7 +617,7 @@ class IUIMessageData
 public:
 	virtual ~IUIMessageData();
 
-//	void	** _vtbl;	// 00
+	//	void	** _vtbl;	// 00
 	UInt8	unk08;		// 08
 	UInt8	unk09;		// 09
 	UInt8	pad0A[6];	// 0A
@@ -641,7 +641,7 @@ public:
 	UInt32	pad14;		// 14
 };
 
-typedef void * (* _CreateUIMessageData)(BSFixedString * name);
+typedef void * (*_CreateUIMessageData)(BSFixedString * name);
 extern RelocAddr<_CreateUIMessageData> CreateUIMessageData;
 
 // 20
@@ -744,7 +744,7 @@ public:
 	static UIManager *	GetSingleton(void)
 	{
 		// CB598A8812CFF3959F94DC8F8371BA876F68AE34+67
-		static RelocPtr<UIManager*> g_UIManager(0x01EE69F0);
+		static RelocPtr<UIManager*> g_UIManager(0x01EE7A70);
 		return *g_UIManager;
 	}
 
@@ -753,7 +753,7 @@ public:
 	void QueueCommand(UIDelegate* cmd);
 	void QueueCommand(UIDelegate_v1* cmd);
 
-	DEFINE_MEMBER_FN(ProcessEventQueue_HookTarget, void, 0x00EC2780);
+	DEFINE_MEMBER_FN(ProcessEventQueue_HookTarget, void, 0x00EC3150);
 };
 STATIC_ASSERT(offsetof(UIManager, pad348) == 0x348);
 STATIC_ASSERT(sizeof(UIManager) == 0xB80);
@@ -841,7 +841,7 @@ public:
 	static UIStringHolder *	GetSingleton(void)
 	{
 		// 81B349AB8ABC9944E48046819F0345AB0526CDB5+9
-		static RelocPtr<UIStringHolder *> g_UIStringHolder(0x01EE69F8);
+		static RelocPtr<UIStringHolder *> g_UIStringHolder(0x01EE7A78);
 		return *g_UIStringHolder;
 	}
 };
@@ -855,11 +855,11 @@ public:
 	static Inventory3DManager * GetSingleton(void)
 	{
 		// 6BC34CC398831C8B8BE5BE20EC213B5BE7C47A7A+2E
-		static RelocPtr<Inventory3DManager*> g_inventory3DManager(0x02F4D0F0);
+		static RelocPtr<Inventory3DManager*> g_inventory3DManager(0x02F4E180);
 		return *g_inventory3DManager;
 	}
 
-//	void			** _vtbl;		// 00
+	//	void			** _vtbl;		// 00
 	UInt32			unk08;			// 08
 	UInt8			unk0C;			// 0C - This appears to be 1 when a menu is open
 	UInt8			unk0D;			// 0D
@@ -879,7 +879,7 @@ public:
 		TESForm	* unk08;
 		void	* unk10;
 		UInt32	  unk18;
-		float	  unk1C;		
+		float	  unk1C;
 	};
 
 	ItemData		unk60[7];	// 60
@@ -894,10 +894,10 @@ public:
 	UInt8			pad15B[5];
 
 	MEMBER_FN_PREFIX(Inventory3DManager);
-	DEFINE_MEMBER_FN(UpdateItem3D, void, 0x008874F0, InventoryEntryData * objDesc);
-	DEFINE_MEMBER_FN(UpdateMagic3D, void, 0x00887520, TESForm * form, UInt32 unk1);
-	DEFINE_MEMBER_FN(Clear3D, void, 0x00887890);
-	DEFINE_MEMBER_FN(Render, UInt32, 0x008872D0);
+	DEFINE_MEMBER_FN(UpdateItem3D, void, 0x00887E20, InventoryEntryData * objDesc);
+	DEFINE_MEMBER_FN(UpdateMagic3D, void, 0x00887E50, TESForm * form, UInt32 unk1);
+	DEFINE_MEMBER_FN(Clear3D, void, 0x008881C0);
+	DEFINE_MEMBER_FN(Render, UInt32, 0x00887C00);
 
 	//DEFINE_MEMBER_FN(Unk1, void, 0x008667E0, UInt32 unk1);
 	//DEFINE_MEMBER_FN(Unk2, void, 0x00867110);
@@ -919,9 +919,9 @@ public:
 	IMenu			* menuInstance;		// 008	0 if the menu is not currently open
 	void			* menuConstructor;	// 010
 
-	bool operator==(const MenuTableItem & rhs) const	{ return name == rhs.name; }
-	bool operator==(const BSFixedString a_name) const	{ return name == a_name; }
-	operator UInt64() const								{ return (UInt64)name.data; }
+	bool operator==(const MenuTableItem & rhs) const { return name == rhs.name; }
+	bool operator==(const BSFixedString a_name) const { return name == a_name; }
+	operator UInt64() const { return (UInt64)name.data; }
 
 	static inline UInt32 GetHash(BSFixedString * key)
 	{
@@ -940,13 +940,13 @@ public:
 // 1C8
 class MenuManager
 {
-	typedef tHashSet<MenuTableItem,BSFixedString> MenuTable;
+	typedef tHashSet<MenuTableItem, BSFixedString> MenuTable;
 
 	// 030-040
 	struct Unknown3
 	{
 		UInt64		unk00;		// 000 - New in SE. Not init'd?
-		
+
 		UInt64		frequency;	// 008 
 
 		UInt64		unk_010;	// 010 (= 0)
@@ -958,7 +958,7 @@ class MenuManager
 
 		UInt32		unk_02C;	// 02C
 		UInt32		unk_030;	// 030
-		
+
 		UInt32		unk_034;	// 034 (= 0)
 		UInt16		unk_038;	// 038
 		UInt8		unk_03A;	// 03A (= 0)
@@ -973,38 +973,37 @@ private:
 	EventDispatcher<MenuModeChangeEvent>	menuModeChangeEventDispatcher;	// 060
 	EventDispatcher<void*>					unk_064;						// 0B8 - New in 1.6.87.0 - Kinect related?
 
-	UnkArray				menuStack;	// 110
-	MenuTable				menuTable;	// 128   (Entries ptr at 150)
-	UInt32					unk_158;	// 158 (= 0)
-	UInt32					unk_15C;	// 15C
-	UInt32					unk_160;	// 160 (= 0)
-	UInt32					unk_164;	// 164 (= 0)
-	UInt32					unk_168;	// 168 (= 0)
-	UInt32					unk_16C;	// 16C (= 0)
-	UInt32					unk_170;	// 170 (= 0)
-	UInt32					unk_174;	// 174 (= 0)
-	UInt32					unk_178;	// 178 (= 0)
-	UInt8					unk_17C;	// 17C (= 0)
-	UInt8					pad_17D[3];	// 17D
-	Unknown3				unk_180;	// 180
-	bool					showMenus;	// 1C0 (= 0)
-	bool					unk_1C1;	// 1C1 (= 0)
-	char					pad[6];		// 1C2
+	UnkArray			menuStack;					// 110
+	MenuTable			menuTable;					// 128   (Entries ptr at 150)
+	SimpleLock			menuTableLock;				// 158
+	UInt32				numPauseGame;				// 160 (= 0) += 1 if (imenu->flags & 0x0001)
+	UInt32				numItemMenu;				// 164 (= 0) += 1 if (imenu->flags & 0x2000)
+	UInt32				numPreventGameLoad;			// 168 (= 0) += 1 if (imenu->flags & 0x0080)
+	UInt32				numDoNotPreventSaveGame;	// 16C (= 0) += 1 if (imenu->flags & 0x0800)
+	UInt32				numStopCrosshairUpdate;		// 170 (= 0) += 1 if (imenu->flags & 0x4000)
+	UInt32				numFlag8000;				// 174 (= 0) += 1 if (imenu->flags & 0x8000)
+	UInt32				numFlag20000;				// 178 (= 0)  = 1 if (imenu->flags & 0x20000)
+	UInt8				numModal;					// 17C (= 0)  = 1 if (imenu->flags & 0x10)
+	UInt8				pad_17D[3];					// 17D
+	Unknown3			unk_180;					// 180
+	bool				showMenus;					// 1C0 (= 0)
+	bool				unk_1C1;					// 1C1 (= 0)
+	char				pad[6];						// 1C2
 
 public:
 	typedef IMenu*	(*CreatorFunc)(void);
 
 private:
 	MEMBER_FN_PREFIX(MenuManager);
-	DEFINE_MEMBER_FN(IsMenuOpen, bool, 0x00EBD7E0, BSFixedString * menuName);
-	DEFINE_MEMBER_FN(Register_internal, void, 0x00EBF050, const char * name, CreatorFunc creator);
+	DEFINE_MEMBER_FN(IsMenuOpen, bool, 0x00EBE1B0, BSFixedString * menuName);
+	DEFINE_MEMBER_FN(Register_internal, void, 0x00EBFA20, const char * name, CreatorFunc creator);
 
 public:
 
 	static MenuManager * GetSingleton(void)
 	{
 		// 502FDB8FEA80C3705F9E228F79D4EA7A399CC7FD+32
-		static RelocPtr<MenuManager *> g_menuManager(0x01EE4AA0);
+		static RelocPtr<MenuManager *> g_menuManager(0x01EE5B20);
 		return *g_menuManager;
 	}
 
