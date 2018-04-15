@@ -27,8 +27,8 @@ That's all there is to it.
 
 Requirements
 ------------
-* Skyrim SE 1.5.23
-* SKSE64 2.0.6+
+* Skyrim SE 1.5.39
+* SKSE64 2.0.7
 * SkyUI SE 5.2+
 
 Installation
