@@ -31,6 +31,6 @@ GFxLoader * GFxLoader::GetSingleton()
 
 UInt64* GFxLoader::getCtorHookAddress()
 {
-	RelocPtr<UInt64> ctorHookAddress(0x005AE4C0 + 0xA08);
+	RelocPtr<UInt64> ctorHookAddress(0x005AE200 + 0xA08);
 	return ctorHookAddress;
 }

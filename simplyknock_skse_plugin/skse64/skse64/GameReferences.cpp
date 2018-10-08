@@ -7,18 +7,18 @@
 #include "skse64/NiNodes.h"
 
 // 123ED1FD37DCAF9CBB5808F1DFB2B9B4E6D678DC+67
-RelocAddr<_CreateRefHandleByREFR> CreateRefHandleByREFR(0x00132270);
+RelocAddr<_CreateRefHandleByREFR> CreateRefHandleByREFR(0x001322E0);
 // D479D10F77326C177B3D5AE2C5738B0D39A1546A+5F
-RelocAddr<_LookupREFRByHandle> LookupREFRByHandle(0x00132A20);
+RelocAddr<_LookupREFRByHandle> LookupREFRByHandle(0x00132A90);
 // B995A21984B048C2B4F61777E615FFFB2806F9B7+8C
-RelocAddr<_LookupREFRObjectByHandle> LookupREFRObjectByHandle(0x00132B50);
+RelocAddr<_LookupREFRObjectByHandle> LookupREFRObjectByHandle(0x00132BC0);
 
 // 123ED1FD37DCAF9CBB5808F1DFB2B9B4E6D678DC+4D
 RelocPtr<UInt32> g_invalidRefHandle(0x01EE5ABC);
 
-RelocAddr<_MoveRefrToPosition> MoveRefrToPosition(0x009AEA70);
-RelocAddr<_PlaceAtMe_Native> PlaceAtMe_Native(0x009956A0);
-RelocAddr<_AddItem_Native> AddItem_Native(0x009935B0);
+RelocAddr<_MoveRefrToPosition> MoveRefrToPosition(0x009AE7B0);
+RelocAddr<_PlaceAtMe_Native> PlaceAtMe_Native(0x009953E0);
+RelocAddr<_AddItem_Native> AddItem_Native(0x009932F0);
 
 UInt32 GetOrCreateRefrHandle(TESObjectREFR* ref)
 {

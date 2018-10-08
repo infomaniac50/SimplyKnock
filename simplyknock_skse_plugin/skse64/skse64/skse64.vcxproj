@@ -14,7 +14,7 @@
     <ProjectGuid>{7028B79C-06E3-4D9A-B38C-1DC3680B1BDB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>skse64</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <SccProjectName>
     </SccProjectName>
     <SccAuxPath>
@@ -26,7 +26,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -52,11 +52,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>$(ProjectName)_1_5_39</TargetName>
+    <TargetName>$(ProjectName)_1_5_53</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>$(ProjectName)_1_5_39</TargetName>
+    <TargetName>$(ProjectName)_1_5_53</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -64,7 +64,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;SKSE64_EXPORTS;RUNTIME_VERSION=0x01050270;RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;SKSE64_EXPORTS;RUNTIME_VERSION=0x01050350;RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>common/IPrefix.h</ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -88,7 +88,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;SKSE64_EXPORTS;RUNTIME;RUNTIME_VERSION=0x01050270;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;SKSE64_EXPORTS;RUNTIME;RUNTIME_VERSION=0x01050350;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>common/IPrefix.h</ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -151,7 +151,6 @@
     <ClCompile Include="InternalSerialization.cpp" />
     <ClCompile Include="InternalTasks.cpp" />
     <ClCompile Include="NiAdditionalGeometryData.cpp" />
-    <ClCompile Include="NiAllocator.cpp" />
     <ClCompile Include="NiControllers.cpp" />
     <ClCompile Include="NiExtraData.cpp" />
     <ClCompile Include="NiGeometry.cpp" />
@@ -300,7 +299,6 @@
     <ClInclude Include="InternalSerialization.h" />
     <ClInclude Include="InternalTasks.h" />
     <ClInclude Include="NiAdditionalGeometryData.h" />
-    <ClInclude Include="NiAllocator.h" />
     <ClInclude Include="NiControllers.h" />
     <ClInclude Include="NiExtraData.h" />
     <ClInclude Include="NiGeometry.h" />

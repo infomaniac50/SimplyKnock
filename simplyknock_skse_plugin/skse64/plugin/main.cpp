@@ -30,6 +30,16 @@ extern "C"	{
 
 			return false;
 		}
+		if (skse->runtimeVersion != CURRENT_RELEASE_RUNTIME)
+		{
+			_MESSAGE("unsupported runtime version %08X", skse->runtimeVersion);
+			return false;
+		}
+		if (skse->runtimeVersion != RUNTIME_VERSION_1_5_53)
+		{
+			_MESSAGE("This plugin is not compatible with this versin of game.");
+			return false;
+		}
 
 		// ### do not do anything else in this callback
 		// ### only fill out PluginInfo and return true/false

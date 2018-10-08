@@ -1,5 +1,8 @@
 #include "skse64/GameData.h"
 
+// 9615953AF64D4A2EB76F7BDE0F38D30B311B1351+40
+RelocAddr <UInt32*> g_gameTime(0x02F92950);
+
 // AB8F3A77254A4A7EF23D7EA9C232AF6674856B23+2B7
 RelocPtr <DataHandler *> g_dataHandler(0x01EE5428);
 
@@ -33,33 +36,33 @@ RelocPtr <EquipManager *> g_equipManager(0x02EEB838);
 // 60C21F969EDFE69EBC96CEEF9620AAF752E2E28B+2
 RelocPtr <RelationshipRanks> g_relationshipRanks(0x01DF9EF8);
 
-RelocAddr<_ChangeActorHeadPart> ChangeActorHeadPart(0x003DC700);
+RelocAddr<_ChangeActorHeadPart> ChangeActorHeadPart(0x003DC5B0);
 // E596A4244F8A3A25FD8DB7E62A3904933060BEA8+DD
-RelocAddr<_GetEitherHandSlot> GetEitherHandSlot(0x003318B0);
+RelocAddr<_GetEitherHandSlot> GetEitherHandSlot(0x00331840);
 // A57D77CB5250B7D84828312B34413A9123EDDD53+35
-RelocAddr<_GetRightHandSlot> GetRightHandSlot(0x00331880);
+RelocAddr<_GetRightHandSlot> GetRightHandSlot(0x00331810);
 // A9D0A72CC9E5F85E2169118F999943FD43AF51EA+83
-RelocAddr<_GetLeftHandSlot> GetLeftHandSlot(0x00331850);
-RelocAddr<_LookupActorValueByName> LookupActorValueByName(0x003E1790);
-RelocAddr<_UpdatePlayerTints> UpdatePlayerTints(0x008B4570);
-RelocAddr<_GetActorBaseOverlays> GetActorBaseOverlays(0x00368D90);
-RelocAddr<_GetNumActorBaseOverlays> GetNumActorBaseOverlays(0x00368E20);
+RelocAddr<_GetLeftHandSlot> GetLeftHandSlot(0x003317E0);
+RelocAddr<_LookupActorValueByName> LookupActorValueByName(0x003E1640);
+RelocAddr<_UpdatePlayerTints> UpdatePlayerTints(0x008B42B0);
+RelocAddr<_GetActorBaseOverlays> GetActorBaseOverlays(0x00368D20);
+RelocAddr<_GetNumActorBaseOverlays> GetNumActorBaseOverlays(0x00368DB0);
 
-RelocAddr<_ApplyMasksToRenderTarget> ApplyMasksToRenderTarget(0x003DB760);
+RelocAddr<_ApplyMasksToRenderTarget> ApplyMasksToRenderTarget(0x003DB610);
 
 // 0A2FCE1738344AE17FCD2B406BDCAAD46AA64394+DC | +1A
-RelocAddr<_UpdateModelSkin> UpdateModelSkin(0x003DCA60); // Applies tint to ShaderType 5 nodes
+RelocAddr<_UpdateModelSkin> UpdateModelSkin(0x003DC910); // Applies tint to ShaderType 5 nodes
 // BFB8C9723EF563C7B5A0E336C4A44311725F8047+F4 | +1A
-RelocAddr<_UpdateModelHair> UpdateModelHair(0x003DCB20); // Applies tint to ShaderType 6 nodes
-RelocAddr<_UpdateModelFace> UpdateModelFace(0x003DC0E0);
-RelocAddr<_UpdateHarvestModel> UpdateHarvestModel(0x0019CFC0);
+RelocAddr<_UpdateModelHair> UpdateModelHair(0x003DC9D0); // Applies tint to ShaderType 6 nodes
+RelocAddr<_UpdateModelFace> UpdateModelFace(0x003DBF90);
+RelocAddr<_UpdateHarvestModel> UpdateHarvestModel(0x0019D030);
 
-RelocAddr<_GetRelationshipIndex> GetRelationshipIndex(0x00346130);
+RelocAddr<_GetRelationshipIndex> GetRelationshipIndex(0x003460C0);
 
 // C5B21010DCF340FCDDDC7866C50C3D78AEF34CB5+6B
 //RelocPtr <bool> g_isGameDataReady(0x058FEAB4);
 
-RelocAddr<_HasLOS> HasLOS(0x0091CAD0);
+RelocAddr<_HasLOS> HasLOS(0x0091C810);
 
 class LoadedModFinder
 {
@@ -79,7 +82,7 @@ const ModInfo * DataHandler::LookupModByName(const char * modName)
 	return modList.modInfoList.Find(LoadedModFinder(modName));
 }
 
-UInt8 DataHandler::GetModIndex(const char* modName)
+SInt32 DataHandler::GetModIndex(const char* modName)
 {
 	return modList.modInfoList.GetIndexOf(LoadedModFinder(modName));
 }
@@ -116,11 +119,12 @@ const ModInfo* DataHandler::LookupLoadedLightModByName(const char* modName)
 	return nullptr;
 }
 
-UInt8 DataHandler::GetLoadedLightModIndex(const char* modName)
+UInt16 DataHandler::GetLoadedLightModIndex(const char* modName)
 {
-	const ModInfo * modInfo = LookupLoadedLightModByName(modName);
-	if (modInfo) {
-		return modInfo->modIndex;
+	for (UInt32 i = 0; i < modList.loadedCCMods.count; i++) {
+		ModInfo * modInfo = modList.loadedCCMods[i];
+		if (_stricmp(modInfo->name, modName) == 0)
+			return i;
 	}
 
 	return -1;

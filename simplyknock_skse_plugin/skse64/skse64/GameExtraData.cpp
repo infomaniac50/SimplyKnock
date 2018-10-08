@@ -6,33 +6,33 @@
 #include "HashUtil.h"
 
 // ??_7ExtraHealth@@6B@
-static const RelocPtr<uintptr_t> s_ExtraHealthVtbl(0x015460B0);
+static const RelocPtr<uintptr_t> s_ExtraHealthVtbl(0x015460C0);
 // ??_7ExtraCharge@@6B@
-static const RelocPtr<uintptr_t> s_ExtraChargeVtbl(0x01546110);
+static const RelocPtr<uintptr_t> s_ExtraChargeVtbl(0x01546120);
 // ??_7ExtraCount@@6B@
-static const RelocPtr<uintptr_t> s_ExtraCountVtbl(0x01546030);
+static const RelocPtr<uintptr_t> s_ExtraCountVtbl(0x01546040);
 // ??_7ExtraTextDisplayData@@6B@
-static const RelocPtr<uintptr_t> s_ExtraTextDisplayVtbl(0x01546B30);
+static const RelocPtr<uintptr_t> s_ExtraTextDisplayVtbl(0x01546B40);
 // ??_7ExtraSoul@@6B@
-static const RelocPtr<uintptr_t> s_ExtraSoulVtbl(0x01549330);
+static const RelocPtr<uintptr_t> s_ExtraSoulVtbl(0x01549340);
 // ??_7ExtraOwnership@@6B@
-static const RelocPtr<uintptr_t> s_ExtraOwnershipVtbl(0x01545FD0);
+static const RelocPtr<uintptr_t> s_ExtraOwnershipVtbl(0x01545FE0);
 // ??_7ExtraAliasInstanceArray@@6B@
-static const RelocPtr<uintptr_t> s_ExtraAliasInstanceArrayVtbl(0x015469F0);
+static const RelocPtr<uintptr_t> s_ExtraAliasInstanceArrayVtbl(0x01546A00);
 // ??_7ExtraCannotWear@@6B@
-static const RelocPtr<uintptr_t> s_ExtraCannotWearVtbl(0x01546090);
+static const RelocPtr<uintptr_t> s_ExtraCannotWearVtbl(0x015460A0);
 // ??_7ExtraHotkey@@6B@
-static const RelocPtr<uintptr_t> s_ExtraHotkeyVtbl(0x01546170);
+static const RelocPtr<uintptr_t> s_ExtraHotkeyVtbl(0x01546180);
 // ??_7ExtraForcedTarget@@6B@
-static const RelocPtr<uintptr_t> s_ExtraForcedTargetVtbl(0x01546BB0);
+static const RelocPtr<uintptr_t> s_ExtraForcedTargetVtbl(0x01546BC0);
 // ??_7ExtraReferenceHandle@@6B@
-static const RelocPtr<uintptr_t> s_ExtraReferenceHandleVtbl(0x015461B0);
-// ??_7ExtraReferenceHandle@@6B@
-static const RelocPtr<uintptr_t> s_ExtraEnchantmentVtbl(0x015461B0);
+static const RelocPtr<uintptr_t> s_ExtraReferenceHandleVtbl(0x015461C0);
+// ??_7ExtraEnchantment@@6B@
+static const RelocPtr<uintptr_t> s_ExtraEnchantmentVtbl(0x015464E0);
 // ??_7ExtraRank@@6B@
-static const RelocPtr<uintptr_t> s_ExtraRankVtbl(0x01546010);
+static const RelocPtr<uintptr_t> s_ExtraRankVtbl(0x01546020);
 // ??_7ExtraUniqueID@@6B@
-static const RelocPtr<uintptr_t> s_ExtraUniqueIdVtbl(0x01546BF0);
+static const RelocPtr<uintptr_t> s_ExtraUniqueIdVtbl(0x01546C00);
 
 ExtraHealth* ExtraHealth::Create() 
 {

@@ -369,6 +369,9 @@ struct MinVersionEntry
 
 static const MinVersionEntry	kMinVersionList[] =
 {
+	// returns true for multiple versions of the runtime
+	{	"papyrusutil plugin",	2,	"broken version check, will crash the game", kCompat_BlockFromRuntime },
+
 	{	NULL, 0, NULL }
 };
 
