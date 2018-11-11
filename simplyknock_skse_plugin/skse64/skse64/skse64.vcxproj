@@ -75,10 +75,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "$(Skyrim64Path)\$(TargetFileName)" /Y</Command>
+      <Command>mkdir "$(SolutionDir)..\..\Skyrim Special Edition\" &amp; copy "$(TargetPath)" "$(SolutionDir)..\..\Skyrim Special Edition\$(TargetFileName)" /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Installing DLL...</Message>
+      <Message>Building DLL...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
