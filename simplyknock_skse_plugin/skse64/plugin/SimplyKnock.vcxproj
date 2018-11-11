@@ -115,7 +115,8 @@
       </Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy "$(OutputPath)SimplyKnock.dll" "$(SolutionDir)..\..\SKSE\Plugins\SimplyKnock.dll"</Command>
+      <Command>mkdir "$(SolutionDir)..\..\SKSE\Plugins\"
+copy "$(OutputPath)SimplyKnock.dll" "$(SolutionDir)..\..\SKSE\Plugins\SimplyKnock.dll"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
