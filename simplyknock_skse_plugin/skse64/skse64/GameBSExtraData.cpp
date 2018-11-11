@@ -206,7 +206,7 @@ BSExtraData* BaseExtraList::GetByType(UInt32 type)
 
 bool BaseExtraList::Remove(UInt8 type, BSExtraData* toRemove)
 {
-	BSReadAndWriteLocker locker(&m_lock);
+	BSWriteLocker locker(&m_lock);
 	if (!toRemove) return false;
 
 	if (HasType(type)) {
@@ -236,7 +236,7 @@ bool BaseExtraList::Add(UInt8 type, BSExtraData* toAdd)
 {
 	if (!toAdd || HasType(type)) return false;
 
-	BSReadAndWriteLocker locker(&m_lock);
+	BSWriteLocker locker(&m_lock);
 	BSExtraData* next = m_data;
 	m_data = toAdd;
 	toAdd->next = next;
