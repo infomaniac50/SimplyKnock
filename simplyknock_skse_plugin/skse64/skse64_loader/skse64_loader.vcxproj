@@ -100,10 +100,10 @@
       <AdditionalDependencies>version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "$(Skyrim64Path)\$(TargetFileName)" /Y</Command>
+      <Command>mkdir "$(SolutionDir)..\..\Skyrim Special Edition\" &amp; copy "$(TargetPath)" "$(SolutionDir)..\..\Skyrim Special Edition\$(TargetFileName)" /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Installing Loader...</Message>
+      <Message>Building Loader...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
