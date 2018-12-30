@@ -372,8 +372,8 @@ public:
 	Notification() : type(0), quest(nullptr), word(nullptr), time(0) { }
 	~Notification() { CALL_MEMBER_FN(this, dtor)(); }
 	
-	BSString			text; 	// 00 - size 10
-	BSString			status;	// 10 - size 10
+	BSString		text; 	// 00 - size 10
+	BSString		status;	// 10 - size 10
 	BSFixedString	sound;	// 20 - size 08
 	tArray<BSFixedString> objectives; // 28 - size 18
 	UInt64			type;	// 40

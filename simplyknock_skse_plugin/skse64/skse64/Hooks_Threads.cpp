@@ -10,19 +10,16 @@
 ICriticalSection			s_taskQueueLock;
 std::queue<TaskDelegate*>	s_tasks;
 
-typedef UInt32(*_ProcessTaskInterface)(void * unk1);
-RelocAddr <_ProcessTaskInterface> ProcessTaskInterface_Hook_Original(0x00C03E60);
-
-RelocAddr <uintptr_t> ProcessTaskInterface_Target(0x005B31E0 + 0x739);
-
 static bool IsTaskQueueEmpty()
 {
 	IScopedCriticalSection scoped(&s_taskQueueLock);
 	return s_tasks.empty();
 }
 
-UInt32 ProcessTaskInterface_Hook(void * unk1)
-{	
+void BSTaskPool::ProcessTasks()
+{
+	CALL_MEMBER_FN(this, ProcessTaskQueue_HookTarget)();
+
 	while (!IsTaskQueueEmpty())
 	{
 		s_taskQueueLock.Enter();
@@ -33,8 +30,6 @@ UInt32 ProcessTaskInterface_Hook(void * unk1)
 		cmd->Run();
 		cmd->Dispose();
 	}
-
-	return ProcessTaskInterface_Hook_Original(unk1);
 }
 
 void TaskInterface::AddTask(TaskDelegate * cmd)
@@ -49,7 +44,11 @@ void Hooks_Threads_Init(void)
 	
 }
 
+RelocAddr <uintptr_t> ProcessTasks_HookTarget_Enter(0x005B31E0 + 0x6B8);
+RelocAddr <uintptr_t> ProcessTasks_HookTarget_Enter2(0x005B46B0 + 0x1C);
+
 void Hooks_Threads_Commit(void)
 {
-	g_branchTrampoline.Write5Call(ProcessTaskInterface_Target.GetUIntPtr(), (uintptr_t)ProcessTaskInterface_Hook);
+	g_branchTrampoline.Write5Call(ProcessTasks_HookTarget_Enter, GetFnAddr(&BSTaskPool::ProcessTasks));
+	g_branchTrampoline.Write5Call(ProcessTasks_HookTarget_Enter2, GetFnAddr(&BSTaskPool::ProcessTasks));
 }
